@@ -1,4 +1,4 @@
-# Email digest for Wunderlist #
+# WuDD - Daily email digest script for Wunderlist #
 
 * Sends daily digest based on user's task stored on Wunderlist, using their public API
 * Author: Martin Plicka <https://mplicka.cz/>

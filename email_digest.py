@@ -91,7 +91,7 @@ DEFAULT_CONFIG = {
     'smtp': {
         'server': '127.0.0.1',
         'sender_address': CONFIG_MANDATORY,
-        'sender_name': 'Wunderlist email digest',
+        'sender_name': 'Wudd digest',
         'recipient_address': CONFIG_MANDATORY,
         'recipient_name': '',
     }

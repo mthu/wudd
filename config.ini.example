@@ -14,7 +14,7 @@ server = localhost
 #sender_address = some_email@example.com
 
 # name is optional, default as follows
-sender_name = Wunderlist email digest
+sender_name = Wudd digest
 
 #### email recipient (YOU!)
 # address is mandatory

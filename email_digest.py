@@ -4,7 +4,7 @@
 # Email digest for Wunderlist - sends daily digest of user's tasks stored on Wunderlist,
 # using their official API
 #
-# Copyright (c) 2016, Martin Plicka <mail@mplicka.cz>
+# Copyright (c) 2016, Martin Plicka <https://mplicka.cz>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification,

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 #
-# Wunderlist email digest - sends daily digest of user's tasks stored on Wunderlist,
+# Email digest for Wunderlist - sends daily digest of user's tasks stored on Wunderlist,
 # using their official API
 #
 # Copyright (c) 2016, Martin Plicka <mail@mplicka.cz>

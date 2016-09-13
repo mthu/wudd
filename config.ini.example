@@ -1,0 +1,25 @@
+[api]
+# register your own app at https://developer.wunderlist.com/apps, place client_id below
+# client_id = <place_client_id_here>
+
+# On the same page, get access_token using the "Create access token" button.
+# access_token = <place_access_token_here>
+
+[smtp]
+# your SMTP server, default is localhost
+server = localhost
+
+#### email sender
+# address is mandatory
+#sender_address = some_email@example.com
+
+# name is optional, default as follows
+sender_name = Wunderlist email digest
+
+#### email recipient (YOU!)
+# address is mandatory
+#recipient_address = you@yourdomain.com
+
+# name is optional, default is empty
+#recipient_name = 
+

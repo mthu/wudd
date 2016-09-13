@@ -24,3 +24,9 @@
 * Visit https://developer.wunderlist.com/apps
 * Create an app and get `client_id`, then generate `access_token` using appropriate button.
 * Use those values in `config.ini`
+
+### User crontab example ###
+```
+0 7,19 * * * /home/joe/wunderlist-email-digest/email_digest.py
+```
+Sends email every day at 7AM and 7PM

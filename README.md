@@ -27,6 +27,6 @@
 
 ### User crontab example ###
 ```
-0 7,19 * * * /home/joe/wunderlist-email-digest/email_digest.py
+0 7,19 * * * /home/joe/wudd/email_digest.py
 ```
 Sends email every day at 7AM and 7PM

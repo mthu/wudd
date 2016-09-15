@@ -185,7 +185,7 @@ GROUPS = [
         'sortKey':      lambda task: task.dueDate,
         'header':       lambda: u'Dnes je ' + TODAY.strftime('%A %d. %B').decode('utf-8').lower(),
         'ifEmpty':      lambda: u'Vše hotovo :-)',
-        'taskText':     lambda task: task.title + (' (starší nesplněné)' if task.dueDate < TODAY else '') + ' (%s)' % task.listName,
+        'taskText':     lambda task: task.title + (u' (starší nesplněné)' if task.dueDate < TODAY else u'') + u' (%s)' % task.listName,
         'taskHtml':     lambda task: (
                             task.titleHtml + (u' <span style="color: red;">starší nesplněné</span>' if task.dueDate < TODAY else ''),
                             task.listName

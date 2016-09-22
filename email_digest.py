@@ -119,7 +119,7 @@ def handleGET(uri):
         "X-Access-Token": config.get('api', 'access_token'),
         "X-Client-ID": config.get('api', 'client_id')
     })
-    if response.status != '200':
+    if response.status != 200:
         raise Exception("Wunderlist API unavailable, status: %s" % response.status)
     return simplejson.loads(body)
 

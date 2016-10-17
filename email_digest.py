@@ -105,10 +105,11 @@ config.check_mandatory()
 
 ######################################################################
 
-URI_BASE = 'https://a.wunderlist.com/api/v1/'
-URI_USER = 'https://a.wunderlist.com/api/v1/user'
-URI_LIST = 'https://a.wunderlist.com/api/v1/lists'
-URI_TASK = 'https://a.wunderlist.com/api/v1/tasks'
+URI_BASE =   'https://a.wunderlist.com/api/v1/'
+URI_USER =   'https://a.wunderlist.com/api/v1/user'
+URI_LIST =   'https://a.wunderlist.com/api/v1/lists'
+URI_TASK =   'https://a.wunderlist.com/api/v1/tasks'
+URI_FOLDER = 'https://a.wunderlist.com/api/v1/folders'
 
 HTTP = Http()
 TODAY = date.today()
@@ -214,12 +215,27 @@ GROUPS = [
 ]
 
 
+def loadLists():
+    lists = handleGET(URI_LIST)
+    folders = handleGET(URI_FOLDER)
+
+    # map list_id -> folder_name
+    listFolderMapping = {listId: folder['title'] for folder in folders for listId in folder.get('list_ids', [])}
+
+    # add title prefix for lists within a folder
+    for oneList in lists:
+        if oneList['id'] in listFolderMapping:
+            oneList['title'] = u'%s / %s' % (listFolderMapping[oneList['id']], oneList['title'])
+
+    return lists
+
+
 def loadAllTasks():
     tasks = []
 
     # download list of task lists
-    lists = handleGET(URI_LIST)    
-    
+    lists = loadLists()
+
     # download tasks for each list
     for oneList in lists:
         tasks.extend([

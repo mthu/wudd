@@ -185,7 +185,7 @@ GROUPS = [
     {
         'id':           'today',
         'condition':    lambda task: task.dueDate is not None and (task.dueDate - TODAY).days <= 0,
-        'sortKey':      lambda task: task.dueDate,
+        'sortKey':      lambda task: (task.dueDate, task.listName),
         'header':       lambda: u'Dnes je ' + TODAY.strftime('%A %d. %B').decode('utf-8').lower(),
         'ifEmpty':      lambda: u'Vše hotovo :-)',
         'taskText':     lambda task: task.title + (u' (starší nesplněné)' if task.dueDate < TODAY else u'') + u' (%s)' % task.listName,
@@ -197,15 +197,27 @@ GROUPS = [
     {
         'id':           'inbox',
         'condition':    lambda task: task.dueDate is None and task.listName == 'inbox',
+        'sortKey':      lambda task: task.title,
         'header':       lambda: u'Nezařazené v inboxu',
         'taskHtml':     lambda task: (task.titleHtml, ''),
         'taskText':     lambda task: task.title
     },
     {
+        'id':           'tomorrow',
+        'condition':    lambda task: task.dueDate is not None and (task.dueDate - TODAY).days == 1,
+        'sortKey':      lambda task: (task.listName, task.title),
+        'header':       lambda: u'Zítra',
+        'taskText':     lambda task: task.title + (u' (starší nesplněné)' if task.dueDate < TODAY else u'') + u' (%s)' % task.listName,
+        'taskHtml':     lambda task: (
+                            task.titleHtml,
+                            task.listName
+                        ),
+    },
+    {
         'id':           'future',
-        'condition':    lambda task: task.dueDate is not None and (task.dueDate - TODAY).days in range(1, 7),
-        'sortKey':      lambda task: task.dueDate,
-        'header':       lambda: u'Dalších 7 dní',
+        'condition':    lambda task: task.dueDate is not None and (task.dueDate - TODAY).days in range(2, 7),
+        'sortKey':      lambda task: (task.dueDate, task.listName, task.title),
+        'header':       lambda: u'Dalších 6 dní',
         'taskHtml':     lambda task: (
                             task.titleHtml + (task.dueDate.strftime(' <span style="color: green; font-size: 80%%;">%A %d. %B')).decode('utf8').lower(),
                             task.listName

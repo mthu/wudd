@@ -36,6 +36,7 @@ import os
 from httplib2 import Http
 
 from datetime import date, datetime
+from time import sleep
 
 from collections import defaultdict
 from ConfigParser import RawConfigParser
@@ -115,13 +116,17 @@ HTTP = Http()
 TODAY = date.today()
 
 
+class APIUnavailableException(Exception):
+    pass
+
+
 def handleGET(uri):
     response, body = HTTP.request(uri, headers={
         "X-Access-Token": config.get('api', 'access_token'),
         "X-Client-ID": config.get('api', 'client_id')
     })
     if response.status != 200:
-        raise Exception("Wunderlist API unavailable, status: %s" % response.status)
+        raise APIUnavailableException("Wunderlist API unavailable, status: %s" % response.status)
     return simplejson.loads(body)
 
 
@@ -336,7 +341,18 @@ def getHtml(groups):
     return emailTemplate % content
 
 
-def main():
+def main(attempts=5):
+    try:
+        process()
+    except APIUnavailableException:
+        if attempts <= 1:
+            raise
+        else:
+            sleep(120)  # wait some time and try again
+            main(attempts - 1)
+
+
+def process():
     groups = groupTasks(loadAllTasks(), GROUPS)
     html = getHtml(groups)
     text = getText(groups)

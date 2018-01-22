@@ -201,6 +201,28 @@ GROUPS = [
                         ),
     },
     {
+        'id':           'starred',
+        'condition':    lambda task: task.starred,
+        'sortKey':      lambda task: (task.listName, task.title),
+        'header':       lambda: u'S hvězdičkou',
+        'taskHtml':     lambda task: (
+                            task.titleHtml + (
+                                (u' <span style="color: red;">starší nesplněné</span>'
+                                    if task.dueDate < TODAY
+                                    else task.dueDate.strftime(' <span style="color: green; font-size: 80%%;">%A %d. %B').decode('utf8').lower())
+                                 if task.dueDate
+                                 else ''),
+                            task.listName
+                        ),
+        'taskText':     lambda task: task.title + (
+                            (u' (starší nesplněné)'
+                                if task.dueDate < TODAY
+                                else task.dueDate.strftime(' (%A %d. %B)').decode('utf-8').lower())
+                             if task.dueDate
+                             else ''
+                        )
+     },
+     {
         'id':           'inbox',
         'condition':    lambda task: task.dueDate is None and task.listName == 'inbox',
         'sortKey':      lambda task: task.title,

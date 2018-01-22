@@ -391,14 +391,14 @@ def process():
     # email subject
     inboxTaskCount = len([x['tasks'] for x in groups if x['definition']['id'] == 'inbox'][0])
     todayTaskCount = len([x['tasks'] for x in groups if x['definition']['id'] == 'today'][0])
+    starredTaskCount = len([x['tasks'] for x in groups if x['definition']['id'] == 'starred'][0])
+
     inboxNote = nform((u'%d nezařazený', u'%d nezařazené', u'%d nezařazených'), inboxTaskCount) % inboxTaskCount \
                  if inboxTaskCount else ''
-    if todayTaskCount:
-        subjectNote = u'%d dnes' % todayTaskCount
-        if inboxNote:
-            subjectNote += ' + ' + inboxNote
-    else:
-        subjectNote = inboxNote
+    todayNote = u'%d dnes' % todayTaskCount
+    starredNote = u'%d s hvězdičkou' % starredTaskCount
+
+    subjectNote = u' + '.join(x for x in (todayNote, starredNote, inboxNote) if x)
 
     # send message
     sendMessage(subjectNote, html, text)

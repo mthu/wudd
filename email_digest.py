@@ -142,10 +142,11 @@ def formatLinks(message):
 
 
 class Task(object):
-    def __init__(self, title, dueDate, listName):
+    def __init__(self, title, dueDate, listName, starred=False):
         self.title = title.strip()
         self.dueDate = datetime.strptime(dueDate, '%Y-%m-%d').date() if dueDate else None
         self.listName = listName.lower().strip() if listName else ''
+        self.starred = starred
 
     @property
     def titleHtml(self,):
@@ -256,7 +257,7 @@ def loadAllTasks():
     # download tasks for each list
     for oneList in lists:
         tasks.extend([
-            Task(task['title'], task.get('due_date'), oneList['title'])
+            Task(task['title'], task.get('due_date'), oneList['title'], task.get('starred', False))
             for task
             in handleGET(URI_TASK + '?list_id=' + str(oneList['id']))
         ])

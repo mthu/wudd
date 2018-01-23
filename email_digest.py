@@ -395,8 +395,8 @@ def process():
 
     inboxNote = nform((u'%d nezařazený', u'%d nezařazené', u'%d nezařazených'), inboxTaskCount) % inboxTaskCount \
                  if inboxTaskCount else ''
-    todayNote = u'%d dnes' % todayTaskCount
-    starredNote = u'%d s hvězdičkou' % starredTaskCount
+    todayNote = u'%d dnes' % todayTaskCount if todayTaskCount else ''
+    starredNote = u'%d s hvězdičkou' % starredTaskCount if starredTaskCount else ''
 
     subjectNote = u' + '.join(x for x in (todayNote, starredNote, inboxNote) if x)
 
